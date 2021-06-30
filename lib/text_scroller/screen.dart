@@ -54,8 +54,8 @@ class _WidgetsOnly extends StatefulWidget {
 
   final List<String> labels;
   final Color textColor;
-  final fontSize;
-  final idleTimeFraction;
+  final double fontSize;
+  final double idleTimeFraction;
   final Duration duration;
   final _LabelDirection direction;
 
