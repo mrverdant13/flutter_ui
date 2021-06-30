@@ -25,7 +25,7 @@ class TextScrollerScreen extends StatelessWidget {
         body: Column(
           children: [
             Expanded(
-              child: _WodgetsOnly(
+              child: _WidgetsOnly(
                 labels: _labels,
                 fontSize: 95.0,
               ),
@@ -40,8 +40,8 @@ enum _LabelDirection {
   bottomUp,
 }
 
-class _WodgetsOnly extends StatefulWidget {
-  const _WodgetsOnly({
+class _WidgetsOnly extends StatefulWidget {
+  const _WidgetsOnly({
     Key? key,
     required this.labels,
     this.textColor = Colors.black,
@@ -60,10 +60,10 @@ class _WodgetsOnly extends StatefulWidget {
   final _LabelDirection direction;
 
   @override
-  __WodgetsOnlyState createState() => __WodgetsOnlyState();
+  _WidgetsOnlyState createState() => _WidgetsOnlyState();
 }
 
-class __WodgetsOnlyState extends State<_WodgetsOnly>
+class _WidgetsOnlyState extends State<_WidgetsOnly>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Curve _awaiterCurve;
