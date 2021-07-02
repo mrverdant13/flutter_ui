@@ -24,72 +24,83 @@ class TextScrollerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.blue.shade300,
         appBar: AppBar(
           title: const Text('Text Scroller'),
         ),
-        body: Row(
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Widgets',
-                    style: Theme.of(context).textTheme.headline2,
-                    maxLines: 1,
-                  ),
-                  Divider(),
-                  Container(
-                    color: Colors.red,
-                    child: _WidgetsOnly(
-                      labels: _labels,
-                      fontSize: _fontSize,
-                      direction: _LabelDirection.topDown,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final isHorizontal = constraints.maxWidth > 1100;
+            return Center(
+              child: SingleChildScrollView(
+                child: Flex(
+                  direction: isHorizontal ? Axis.horizontal : Axis.vertical,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: isHorizontal
+                      ? CrossAxisAlignment.center
+                      : CrossAxisAlignment.stretch,
+                  children: [
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 500.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Widgets',
+                              style: Theme.of(context).textTheme.headline2,
+                              maxLines: 1,
+                            ),
+                            Divider(),
+                            _WidgetsOnly(
+                              labels: _labels,
+                              fontSize: _fontSize,
+                              direction: _LabelDirection.topDown,
+                            ),
+                            Divider(),
+                            _WidgetsOnly(
+                              labels: _labels,
+                              fontSize: _fontSize,
+                              direction: _LabelDirection.bottomUp,
+                            ),
+                            Divider(),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  Divider(),
-                  Container(
-                    color: Colors.red,
-                    child: _WidgetsOnly(
-                      labels: _labels,
-                      fontSize: _fontSize,
-                      direction: _LabelDirection.bottomUp,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 500.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Custom Painter',
+                              style: Theme.of(context).textTheme.headline2,
+                              maxLines: 1,
+                            ),
+                            Divider(),
+                            _CustomPainterOnly(
+                              labels: _labels,
+                              fontSize: _fontSize,
+                              direction: _LabelDirection.topDown,
+                            ),
+                            Divider(),
+                            _CustomPainterOnly(
+                              labels: _labels,
+                              fontSize: _fontSize,
+                              direction: _LabelDirection.bottomUp,
+                            ),
+                            Divider(),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  Divider(),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Custom Painter',
-                    style: Theme.of(context).textTheme.headline2,
-                    maxLines: 1,
-                  ),
-                  Divider(),
-                  Container(
-                    color: Colors.red,
-                    child: _CustomPainterOnly(
-                      labels: _labels,
-                      fontSize: _fontSize,
-                      direction: _LabelDirection.topDown,
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    color: Colors.red,
-                    child: _CustomPainterOnly(
-                      labels: _labels,
-                      fontSize: _fontSize,
-                      direction: _LabelDirection.bottomUp,
-                    ),
-                  ),
-                  Divider(),
-                ],
-              ),
-            ),
-          ],
+            );
+          },
         ),
       );
 }

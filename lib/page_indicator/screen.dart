@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class PageIndicatorScreen extends StatefulWidget {
@@ -22,9 +24,6 @@ class _PageIndicatorScreenState extends State<PageIndicatorScreen> {
 
   static const _pagesCount = 5;
   static const _laggingOffset = 0.5;
-  static const _dotOuterRadius = 7.0;
-  static const _dotInnerRadius = 6.5;
-  static const _dotSeparation = 5.0;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -51,16 +50,29 @@ class _PageIndicatorScreenState extends State<PageIndicatorScreen> {
               ),
             ),
             const Divider(),
-            Container(
-              color: Colors.cyan,
-              child: _PageIndicator(
-                pagesCount: _pagesCount,
-                laggingOffset: _laggingOffset,
-                dotOuterRadius: _dotOuterRadius,
-                dotInnerRadius: _dotInnerRadius,
-                dotsSeparation: _dotSeparation,
-                pageController: _pageController,
-              ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final availableWidth = constraints.maxWidth;
+                final dotOuterRadius = min(
+                  (availableWidth / _pagesCount) * 0.15,
+                  15.0,
+                );
+                final dotInnerRadius = dotOuterRadius * 0.9;
+                final dotsSeparation = dotOuterRadius * 2;
+                return Container(
+                  width: double.infinity,
+                  color: Colors.blue.shade300,
+                  alignment: Alignment.center,
+                  child: _PageIndicator(
+                    pagesCount: _pagesCount,
+                    laggingOffset: _laggingOffset,
+                    dotOuterRadius: dotOuterRadius,
+                    dotInnerRadius: dotInnerRadius,
+                    dotsSeparation: dotsSeparation,
+                    pageController: _pageController,
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -126,8 +138,8 @@ class _PageIndicator extends StatelessWidget {
                     child: _PageDot(
                       indicatorBorderWidth: dotBorderWidth,
                       indicatorOuterDiameter: dotOuterDiameter,
-                      fillColor: Colors.blue,
-                      borderColor: Colors.black,
+                      fillColor: Colors.blue.shade200,
+                      borderColor: Colors.blue.shade800,
                     ),
                   ),
                 ).expand(
@@ -146,8 +158,8 @@ class _PageIndicator extends StatelessWidget {
                 child: _ActivePageDot(
                   borderRadius: dotOuterRadius,
                   borderWidth: dotBorderWidth,
-                  fillColor: Colors.red,
-                  borderColor: Colors.yellow,
+                  fillColor: Colors.blue,
+                  borderColor: Colors.blue.shade900,
                 ),
               ),
             ),
