@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'page_indicator/screen.dart';
 import 'text_scroller/screen.dart';
 
 void main() => runApp(
@@ -21,6 +22,7 @@ class _Home extends StatelessWidget {
 
   static const _routes = {
     'Text Scroller': const TextScrollerScreen(),
+    'Page Indicator': const PageIndicatorScreen(),
   };
 
   @override
@@ -33,6 +35,7 @@ class _Home extends StatelessWidget {
         crossAxisCount: MediaQuery.of(context).size.width ~/ 200,
         childAspectRatio: 2,
         padding: const EdgeInsets.all(30.0),
+        crossAxisSpacing: 30.0,
         children: [
           ..._routes.keys.map(
             (routeName) => ElevatedButton(
