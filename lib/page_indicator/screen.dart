@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+part 'custom_painter.dart';
 part 'widgets.dart';
 
 class PageIndicatorScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _PageIndicatorScreenState extends State<PageIndicatorScreen> {
     );
   }
 
-  static const _pagesCount = 5;
+  static const _pagesCount = 19;
   static const _laggingOffset = 0.5;
 
   @override
@@ -51,7 +52,6 @@ class _PageIndicatorScreenState extends State<PageIndicatorScreen> {
                 ),
               ),
             ),
-            const Divider(),
             LayoutBuilder(
               builder: (context, constraints) {
                 final availableWidth = constraints.maxWidth;
@@ -61,18 +61,37 @@ class _PageIndicatorScreenState extends State<PageIndicatorScreen> {
                 );
                 final dotInnerRadius = dotOuterRadius * 0.9;
                 final dotsSeparation = dotOuterRadius * 2;
-                return Container(
-                  width: double.infinity,
-                  color: Colors.blue.shade300,
-                  alignment: Alignment.center,
-                  child: _PageIndicatorWithWidgets(
-                    pagesCount: _pagesCount,
-                    laggingOffset: _laggingOffset,
-                    dotOuterRadius: dotOuterRadius,
-                    dotInnerRadius: dotInnerRadius,
-                    dotsSeparation: dotsSeparation,
-                    pageController: _pageController,
-                  ),
+                return Column(
+                  children: [
+                    const Divider(),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.blue.shade300,
+                      alignment: Alignment.center,
+                      child: _PageIndicatorWithWidgets(
+                        pagesCount: _pagesCount,
+                        laggingOffset: _laggingOffset,
+                        dotOuterRadius: dotOuterRadius,
+                        dotInnerRadius: dotInnerRadius,
+                        dotsSeparation: dotsSeparation,
+                        pageController: _pageController,
+                      ),
+                    ),
+                    const Divider(),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.blue.shade300,
+                      alignment: Alignment.center,
+                      child: _PageIndicatorWithCustomPainter(
+                        pagesCount: _pagesCount,
+                        laggingOffset: _laggingOffset,
+                        dotOuterRadius: dotOuterRadius,
+                        dotInnerRadius: dotInnerRadius,
+                        dotsSeparation: dotsSeparation,
+                        pageController: _pageController,
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
