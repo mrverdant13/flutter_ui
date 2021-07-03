@@ -65,7 +65,7 @@ class _PageIndicatorScreenState extends State<PageIndicatorScreen> {
                   width: double.infinity,
                   color: Colors.blue.shade300,
                   alignment: Alignment.center,
-                  child: _PageIndicator(
+                  child: _PageIndicatorWithWidgets(
                     pagesCount: _pagesCount,
                     laggingOffset: _laggingOffset,
                     dotOuterRadius: dotOuterRadius,

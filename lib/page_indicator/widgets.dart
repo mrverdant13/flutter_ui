@@ -1,7 +1,7 @@
 part of 'screen.dart';
 
-class _PageIndicator extends StatelessWidget {
-  const _PageIndicator({
+class _PageIndicatorWithWidgets extends StatelessWidget {
+  const _PageIndicatorWithWidgets({
     Key? key,
     required this.pagesCount,
     required this.laggingOffset,
