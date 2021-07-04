@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'page_indicator/screen.dart';
 import 'text_scroller/screen.dart';
+import 'circle_reveal_transition/screen.dart';
 
 void main() => runApp(
       MyApp(),
@@ -23,6 +24,7 @@ class _Home extends StatelessWidget {
   static const _routes = {
     'Text Scroller': const TextScrollerScreen(),
     'Page Indicator': const PageIndicatorScreen(),
+    'Circle Reveal Transition': const CircleRevealTransitionScreen(),
   };
 
   @override
