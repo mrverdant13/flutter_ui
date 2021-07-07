@@ -40,6 +40,7 @@ class _Home extends StatelessWidget {
         childAspectRatio: 2,
         padding: const EdgeInsets.all(30.0),
         crossAxisSpacing: 30.0,
+        mainAxisSpacing: 30.0,
         children: [
           ..._routes.keys.map(
             (routeName) => ElevatedButton(
