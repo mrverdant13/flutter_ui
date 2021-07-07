@@ -20,7 +20,7 @@ class BlobColorPickerScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: const Text('Circle Reveal Transition'),
+          title: const Text('Blob Color Picker'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
