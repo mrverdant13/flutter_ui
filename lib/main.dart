@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'blob_color_picker/screen.dart';
+import 'nest_pattern/screen.dart';
 import 'page_indicator/screen.dart';
 import 'text_scroller/screen.dart';
 import 'circle_reveal_transition/screen.dart';
@@ -27,6 +28,7 @@ class _Home extends StatelessWidget {
     'Page Indicator': const PageIndicatorScreen(),
     'Circle Reveal Transition': const CircleRevealTransitionScreen(),
     'Blob Color Picker': const BlobColorPickerScreen(),
+    'Nest Pattern': const NestPatternScreen(),
   };
 
   @override
