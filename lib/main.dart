@@ -39,24 +39,22 @@ class _Home extends StatelessWidget {
       ),
       body: GridView.count(
         crossAxisCount: MediaQuery.of(context).size.width ~/ 200,
-        childAspectRatio: 2,
+        mainAxisSpacing: 20.0,
+        crossAxisSpacing: 20.0,
+        childAspectRatio: 3,
         padding: const EdgeInsets.all(30.0),
-        crossAxisSpacing: 30.0,
-        mainAxisSpacing: 30.0,
         children: [
           ..._routes.keys.map(
-            (routeName) => ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => _routes[routeName]!,
-                  ),
-                );
-              },
+            (routeName) => TextButton(
               child: Text(
                 routeName,
                 textAlign: TextAlign.center,
+              ),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => _routes[routeName]!,
+                ),
               ),
             ),
           )
