@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'animated_flipped_card/screen.dart';
 import 'blob_color_picker/screen.dart';
 import 'candles_chart/screen.dart';
 import 'circle_reveal_transition/screen.dart';
@@ -33,6 +34,7 @@ class _Home extends StatelessWidget {
     'Nest Pattern': const NestPatternScreen(),
     'Candles Chart': const CandlesChartScree(),
     'Terminal Typewriter': const TerminalTypewriterScreen(),
+    'Animated Flip Card': const AnimatedFlipCardScreen(),
   };
 
   @override
