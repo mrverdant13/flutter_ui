@@ -109,37 +109,37 @@ class __PatternPaintState extends State<_PatternPaint>
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
         animation: _animationController,
-        child: widget.child,
-        builder: (context, child) => CustomPaint(
-          painter: _PatternPainter(
+        child: CustomPaint(
+          painter: _DotsPatternPainter(
             logoRadius: widget.logoDiameter / 2,
             glowThickness: widget.glowThickness,
-            glowColor: widget.glowColor.withOpacity(_animationController.value),
             dotsPerRing: widget.dotsPerRing,
             dotRadius: widget.dotRadius,
             dotColor: widget.dotsColor,
+          ),
+          child: widget.child,
+        ),
+        builder: (context, child) => CustomPaint(
+          painter: _GlowPainter(
+            logoRadius: widget.logoDiameter / 2,
+            glowThickness: widget.glowThickness,
+            glowColor: widget.glowColor.withOpacity(_animationController.value),
           ),
           child: child,
         ),
       );
 }
 
-class _PatternPainter extends CustomPainter {
-  const _PatternPainter({
+class _GlowPainter extends CustomPainter {
+  const _GlowPainter({
     required this.logoRadius,
     required this.glowThickness,
     required this.glowColor,
-    required this.dotsPerRing,
-    required this.dotRadius,
-    required this.dotColor,
   });
 
   final double logoRadius;
   final double glowThickness;
   final Color glowColor;
-  final int dotsPerRing;
-  final double dotRadius;
-  final Color dotColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -149,11 +149,6 @@ class _PatternPainter extends CustomPainter {
     );
 
     _drawGlow(
-      canvas: canvas,
-      availableArea: size,
-    );
-
-    _drawDotsPattern(
       canvas: canvas,
       availableArea: size,
     );
@@ -183,6 +178,57 @@ class _PatternPainter extends CustomPainter {
         ),
     );
     canvas.clipPath(path);
+  }
+
+  void _drawGlow({
+    required Canvas canvas,
+    required Size availableArea,
+  }) {
+    final globalCenter = availableArea.center(Offset.zero);
+
+    final paint = Paint()
+      ..color = glowColor
+      ..imageFilter = ImageFilter.blur(
+        sigmaX: glowThickness,
+        sigmaY: glowThickness,
+        tileMode: TileMode.decal,
+      );
+
+    canvas.drawCircle(
+      globalCenter,
+      logoRadius + glowThickness / 2,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_GlowPainter oldDelegate) => true;
+
+  @override
+  bool shouldRebuildSemantics(_GlowPainter oldDelegate) => false;
+}
+
+class _DotsPatternPainter extends CustomPainter {
+  const _DotsPatternPainter({
+    required this.logoRadius,
+    required this.glowThickness,
+    required this.dotsPerRing,
+    required this.dotRadius,
+    required this.dotColor,
+  });
+
+  final double logoRadius;
+  final double glowThickness;
+  final int dotsPerRing;
+  final double dotRadius;
+  final Color dotColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    _drawDotsPattern(
+      canvas: canvas,
+      availableArea: size,
+    );
   }
 
   void _drawDotsPattern({
@@ -229,32 +275,11 @@ class _PatternPainter extends CustomPainter {
     }
   }
 
-  void _drawGlow({
-    required Canvas canvas,
-    required Size availableArea,
-  }) {
-    final globalCenter = availableArea.center(Offset.zero);
-
-    final paint = Paint()
-      ..color = glowColor
-      ..imageFilter = ImageFilter.blur(
-        sigmaX: glowThickness,
-        sigmaY: glowThickness,
-        tileMode: TileMode.decal,
-      );
-
-    canvas.drawCircle(
-      globalCenter,
-      logoRadius + glowThickness / 2,
-      paint,
-    );
-  }
+  @override
+  bool shouldRepaint(_DotsPatternPainter oldDelegate) => false;
 
   @override
-  bool shouldRepaint(_PatternPainter oldDelegate) => true;
-
-  @override
-  bool shouldRebuildSemantics(_PatternPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(_DotsPatternPainter oldDelegate) => false;
 }
 
 extension _RotableCanvas on Canvas {
